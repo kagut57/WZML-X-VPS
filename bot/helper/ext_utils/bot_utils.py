@@ -139,12 +139,9 @@ def handleIndex(index, dic):
 def get_progress_bar_string(pct):
     pct = float(str(pct).strip('%'))
     p = min(max(pct, 0), 100)
-    cFull = int(p // 8)
-    cPart = int(p % 8 - 1)
-    p_str = '■' * cFull
-    if cPart >= 0:
-        p_str += ['▤', '▥', '▦', '▧', '▨', '▩', '■'][cPart]
-    p_str += '□' * (12 - cFull)
+    cFull = int(p // 10)
+    p_str = '★' * cFull
+    p_str += '☆' * (10 - cFull)
     return f"[{p_str}]"
 
 
@@ -191,7 +188,7 @@ class EngineStatus:
         self.STATUS_GD = f"Google-API v{version_cache['gapi']}"
         self.STATUS_MEGA = f"MegaSDK v{version_cache['mega']}"
         self.STATUS_QB = f"qBit {version_cache['qbit']}"
-        self.STATUS_TG = f"PyroMulti v{version_cache['pyro']}"
+        self.STATUS_TG = f"PyroF v{version_cache['pyro']}"
         self.STATUS_YT = f"yt-dlp v{version_cache['ytdlp']}"
         self.STATUS_EXT = "pExtract v2"
         self.STATUS_SPLIT_MERGE = f"ffmpeg v{version_cache['ffmpeg']}"
@@ -201,7 +198,7 @@ class EngineStatus:
 
 
 def get_readable_message():
-    msg = ""
+    msg = "<a href='https://t.me/JetMirror'>𝑩𝒐𝒕 𝒃𝒚 🚀 𝑱𝒆𝒕-𝑴𝒊𝒓𝒓𝒐𝒓</a>\n"
     button = None
     STATUS_LIMIT = config_dict['STATUS_LIMIT']
     tasks = len(download_dict)
