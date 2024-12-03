@@ -73,16 +73,16 @@ class Gofile:
             (await self.__getAccount())["rootFolder"], ospath.basename(path)
         )
         await self.__setOptions(
-            contentId=folder_data["folderId"], option="public", value="true"
+            contentId=folder_data["id"], option="public", value="true"
         )
 
-        folderId = folderId or folder_data["folderId"]
+        folderId = folderId or folder_data["id"]
         folder_ids = {".": folderId}
         for root, _, files in await sync_to_async(walk, path):
             rel_path = ospath.relpath(root, path)
             parentFolderId = folder_ids.get(ospath.dirname(rel_path), folderId)
             folder_name = ospath.basename(rel_path)
-            currFolderId = (await self.create_folder(parentFolderId, folder_name))["folderId"]
+            currFolderId = (await self.create_folder(parentFolderId, folder_name))["id"]
             await self.__setOptions(
                 contentId=currFolderId, option="public", value="true"
             )
@@ -111,7 +111,7 @@ class Gofile:
         if token := self.token or "":
             req_dict["token"] = token
         if folderId:
-            req_dict["folderId"] = folderId
+            req_dict["id"] = folderId
         if description:
             req_dict["description"] = description
         if password:
